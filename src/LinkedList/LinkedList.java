@@ -61,7 +61,7 @@ public class LinkedList<E> {
 
     //在链表头添加新的元素e
     public void addFirst(E e) {
-        add(0,e);
+        add(0, e);
     }
 
     //在链表末尾添加新的元素e
@@ -69,5 +69,62 @@ public class LinkedList<E> {
         add(size, e);
     }
 
+    //获得链表的第index个位置的元素
+    public E get(int index) {
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("Get failed. Illegal index.");
+        }
+        Node cur = dummyHead.next;
+        for (int i = 0; i < index; i++) {
+            cur = cur.next;
+        }
+        return cur.e;
+    }
 
+    public E getFirst() {
+        return get(0);
+    }
+
+    public E getLast() {
+        return get(size - 1);
+    }
+
+    //修改链表的第index个位置的元素为e
+    public void set(int index, E e) {
+        if (index < 0 || index >= size) {
+            throw new IllegalArgumentException("set failed. Illegal index.");
+        }
+        Node cur = dummyHead.next;
+        for (int i = 0; i < index; i++) {
+            cur = cur.next;
+        }
+        cur.e = e;
+    }
+
+    //查找链表中是否有元素e
+    public boolean contains(E e) {
+        Node cur = dummyHead.next;
+        while (cur != null) {
+            if (cur.e.equals(e)) {
+                return true;
+            }
+            cur = cur.next;
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder res = new StringBuilder();
+//        Node cur = dummyHead.next;
+//        while (cur != null) {
+//            res.append(cur + "->");
+//            cur = cur.next;
+//        }
+        for (Node cur = dummyHead.next; cur != null; cur = cur.next) {
+            res.append(cur + "->");
+        }
+        res.append("NULL");
+        return res.toString();
+    }
 }
