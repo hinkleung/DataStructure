@@ -1,7 +1,7 @@
 package LinkedList;
 
 /**
- * 删除链表中值等于给定的val的结点
+ * 删除链表中值等于给定的val的结点 leetcode 203
  */
 class Solution {
 
@@ -86,17 +86,36 @@ class Solution {
      * @param val
      * @return
      */
-    public ListNode removeElements4(ListNode head, int val) {
+    public ListNode removeElements4(ListNode head, int val, int depth) {
+        String depthString = generateDepthString(depth);
+        System.out.print(depthString);
+        System.out.println("Call: remove " + val + " in " + head);
         if (head == null) {
+            System.out.print(depthString);
+            System.out.println("Return:" + head);
             return null;
         }
-        ListNode res = removeElements4(head.next, val);
+        ListNode res = removeElements4(head.next, val, depth + 1);
+        System.out.print(depthString);
+        System.out.println("After remove" + val + ": " + res);
+        ListNode ret;
         if (head.val == val) {
-            return res;
+            ret = res;
         } else {
             head.next = res;
-            return head;
+            ret = head;
         }
+        System.out.print(depthString);
+        System.out.println("Return: " + ret);
+        return ret;
+    }
+
+    private String generateDepthString(int depth) {
+        StringBuilder res = new StringBuilder();
+        for (int i = 0; i < depth; i++) {
+            res.append("--");
+        }
+        return res.toString();
     }
 
     public static void main(String[] args) {
@@ -104,7 +123,7 @@ class Solution {
         ListNode head = new ListNode(nums);
         System.out.println(head);
 
-        ListNode res = (new Solution()).removeElements4(head, 6);
+        ListNode res = (new Solution()).removeElements4(head, 6, 0);
         System.out.println(res);
 
 
