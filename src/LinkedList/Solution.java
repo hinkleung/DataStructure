@@ -5,15 +5,6 @@ package LinkedList;
  */
 class Solution {
 
-    public class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
-    }
-
     public ListNode removeElements1(ListNode head, int val) {
         //持续判断头结点
         while (head != null && head.val == val) {
@@ -41,6 +32,7 @@ class Solution {
 
     /**
      * 简化
+     *
      * @param head
      * @param val
      * @return
@@ -68,6 +60,7 @@ class Solution {
 
     /**
      * 虚拟头结点
+     *
      * @param head
      * @param val
      * @return
@@ -84,6 +77,37 @@ class Solution {
             }
         }
         return dummyHead.next;
+    }
+
+    /**
+     * 递归实现
+     *
+     * @param head
+     * @param val
+     * @return
+     */
+    public ListNode removeElements4(ListNode head, int val) {
+        if (head == null) {
+            return null;
+        }
+        ListNode res = removeElements4(head.next, val);
+        if (head.val == val) {
+            return res;
+        } else {
+            head.next = res;
+            return head;
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 2, 6, 3, 4, 5, 6};
+        ListNode head = new ListNode(nums);
+        System.out.println(head);
+
+        ListNode res = (new Solution()).removeElements4(head, 6);
+        System.out.println(res);
+
+
     }
 
 }
