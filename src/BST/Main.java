@@ -12,10 +12,14 @@ public class Main {
             bst.add(num);
         }
         bst.preOrder();
-//      System.out.println(bst.toString());
+//        System.out.print(bst);
         System.out.println();
-        bst.inOrder();
-        System.out.println();
-        bst.postOrder();
+        bst.preOrderNR();
+//        System.out.println(bst.toString());
+//        System.out.println();
+//        bst.inOrder();
+//        System.out.println();
+//        bst.postOrder();
+
     }
 }

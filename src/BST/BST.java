@@ -1,5 +1,7 @@
 package BST;
 
+import java.util.Stack;
+
 public class BST<E extends Comparable<E>> {
 
     private class Node {
@@ -72,6 +74,22 @@ public class BST<E extends Comparable<E>> {
         preOrder(root);
     }
 
+    // 二分搜索数的非递归前序遍历
+    public void preOrderNR() {
+        Stack<Node> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            Node cur = stack.pop();
+            System.out.println(cur.e);
+            if (cur.right != null) {
+                stack.push(cur.right);
+            }
+            if (cur.left != null) {
+                stack.push(cur.left);
+            }
+        }
+    }
+
     // 前序遍历以node为根的二分搜索树，递归算法
     private void preOrder(Node node) {
         if (node == null) {
@@ -99,11 +117,12 @@ public class BST<E extends Comparable<E>> {
 
 
     // 后序遍历
-    public void postOrder(){
+    public void postOrder() {
         postOrder(root);
     }
+
     // 后序遍历以node为根的二分搜索树，递归算法
-    private void postOrder(Node node){
+    private void postOrder(Node node) {
         if (node == null) {
             return;
         }
