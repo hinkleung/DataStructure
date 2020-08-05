@@ -11,10 +11,11 @@ public class Main {
         for (int num : nums) {
             bst.add(num);
         }
-        bst.preOrder();
+        bst.levelOrder();
+//        bst.preOrder();
 //        System.out.print(bst);
-        System.out.println();
-        bst.preOrderNR();
+//        System.out.println();
+//        bst.preOrderNR();
 //        System.out.println(bst.toString());
 //        System.out.println();
 //        bst.inOrder();
