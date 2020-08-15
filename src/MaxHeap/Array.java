@@ -156,8 +156,17 @@ public class Array<E> {
         return get(size - 1);
     }
 
-    public E getFirst(){
+    public E getFirst() {
         return get(0);
+    }
+
+    public void swap(int i, int j) {
+        if (i < 0 || i >= size || j < 0 || j >= size) {
+            throw new IllegalArgumentException("Index is illegal.");
+        }
+        E t = data[i];
+        data[i] = data[j];
+        data[j] = t;
     }
 
 }
