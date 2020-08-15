@@ -1,6 +1,8 @@
-package BST;
+package Map;
 
 import Map.Map;
+
+import java.util.ArrayList;
 
 public class BSTMap<K extends Comparable<K>, V> implements Map<K, V> {
 
@@ -157,6 +159,25 @@ public class BSTMap<K extends Comparable<K>, V> implements Map<K, V> {
             node.left = node.right = null;
 
             return successor;
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Pride and Prejudice");
+        ArrayList<String> words = new ArrayList<>();
+        if (FileOperation.readFile("src/BST/pride-and-prejudice.txt", words)) {
+            System.out.println("Total words: " + words.size());
+            BSTMap<String, Integer> map = new BSTMap<String, Integer>();
+            for (String word : words) {
+                if (map.contains(word)) {
+                    map.set(word, map.get(word) + 1);
+                } else {
+                    map.add(word, 1);
+                }
+            }
+            System.out.println("Total different words: " + map.getSize());
+            System.out.println("Frequency of PRIDE: " + map.get("pride"));
+            System.out.println("Frequency of PREJUDICE: " + map.get("prejudice"));
         }
     }
 
