@@ -1,8 +1,6 @@
 package MaxHeap;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.PriorityQueue;
 
 /**
@@ -10,23 +8,18 @@ import java.util.PriorityQueue;
  */
 public class LeetCode347Solution2 {
 
-    private class Freq implements Comparable<Freq> {
+    private class Freq {
         int e, freq;
-
         public Freq(int e, int freq) {
             this.e = e;
             this.freq = freq;
         }
+    }
 
+    private class FreqComparator implements Comparator<Freq>{
         @Override
-        public int compareTo(Freq o) {
-            if (this.freq < o.freq) {
-                return -1;
-            } else if (this.freq > o.freq) {
-                return 1;
-            } else {
-                return 0;
-            }
+        public int compare(Freq a, Freq b) {
+            return a.freq-b.freq;
         }
     }
 
@@ -39,7 +32,7 @@ public class LeetCode347Solution2 {
                 map.put(num, 1);
             }
         }
-        PriorityQueue<Freq> pq = new PriorityQueue<Freq>();
+        PriorityQueue<Freq> pq = new PriorityQueue<Freq>(new FreqComparator());
         for (int key : map.keySet()) {
             if (pq.size() < k) {
                 pq.add(new Freq(key, map.get(key)));
