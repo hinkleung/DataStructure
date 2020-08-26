@@ -17,6 +17,13 @@ public class NumArray {
         }
     }
 
+    public void update(int index, int val) {
+        if (segmentTree == null) {
+            throw new IllegalArgumentException("Segment Tree is null");
+        }
+        segmentTree.set(index, val);
+    }
+
     public int sumRange(int i, int j) {
         if (segmentTree == null) {
             throw new IllegalArgumentException("Segment Tree is null");
