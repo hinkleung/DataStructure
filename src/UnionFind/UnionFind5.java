@@ -1,11 +1,10 @@
 package UnionFind;
 
 /**
- * 第4版，优化rank
- * rank[i]表示根节点为i的树的高度
- * 将rank低的集合合并到rank高的集合上
+ * 4版本基础上添加路径压缩 parent[i]=parent[parent[i]]
+ * 此时rank不是指深度，而是指排名
  */
-public class UnionFind4 implements UF {
+public class UnionFind5 implements UF{
 
     /**
      * 第i个元素指向j
@@ -13,7 +12,7 @@ public class UnionFind4 implements UF {
     private int[] parent;
     private int[] rank; //rank[i]表示以i为根的集合所表示的树的层数
 
-    public UnionFind4(int size) {
+    public UnionFind5(int size) {
         parent = new int[size];
         rank = new int[size];
         for (int i = 0; i < size; i++) {
@@ -35,6 +34,8 @@ public class UnionFind4 implements UF {
         }
         //找根节点
         while (p != parent[p]) {
+            //若不是根节点，则路径压缩
+            parent[p] = parent[parent[p]];
             p = parent[p];
         }
         return p;
@@ -66,5 +67,4 @@ public class UnionFind4 implements UF {
             rank[pRoot] += 1;
         }
     }
-
 }
