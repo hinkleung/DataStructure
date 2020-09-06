@@ -97,6 +97,51 @@ public class AVLTree<K extends Comparable<K>, V> {
         return getHeight(node.left) - getHeight(node.right);
     }
 
+    // 对节点y进行向右旋转操作，返回旋转后新的根节点x
+    //        y                              x
+    //       / \                           /   \
+    //      x   T4     向右旋转 (y)        z     y
+    //     / \       - - - - - - - ->    / \   / \
+    //    z   T3                       T1  T2 T3 T4
+    //   / \
+    // T1   T2
+    private Node rightRotate(Node y) {
+        Node x = y.left;
+        Node t3 = x.right;
+        //向右旋转
+        x.right = y;
+        y.left = t3;
+
+        //更新height，只需要更新x和y
+        y.height = Math.max(getHeight(y.left), getHeight(y.right)) + 1;
+        x.height = Math.max(getHeight(x.left), getHeight(x.right)) + 1;
+
+        return x;
+    }
+
+    // 对节点y进行向左旋转操作，返回旋转后新的根节点x
+    //    y                             x
+    //  /  \                          /   \
+    // T1   x      向左旋转 (y)       y     z
+    //     / \   - - - - - - - ->   / \   / \
+    //   T2  z                     T1 T2 T3 T4
+    //      / \
+    //     T3 T4
+    private Node leftRotate(Node y) {
+        Node x = y.right;
+        Node t2 = x.left;
+
+        //向左旋转
+        x.left = y;
+        y.right = t2;
+
+        //更新height，只需要更新x和y
+        y.height = Math.max(getHeight(y.left), getHeight(y.right)) + 1;
+        x.height = Math.max(getHeight(x.left), getHeight(x.right)) + 1;
+
+        return x;
+    }
+
     //向二分搜索树中添加新的元素(key,value)
     public void add(K key, V value) {
         root = add(root, key, value);
@@ -120,12 +165,19 @@ public class AVLTree<K extends Comparable<K>, V> {
         // 更新height
         node.height = 1 + Math.max(getHeight(node.left), getHeight(node.right));
 
-
         //计算平衡因子
         int balanceFactor = getBalanceFactor(node);
         if (Math.abs(balanceFactor) > 1) {
-            //不平衡
-            System.out.println("unbalanced:" + balanceFactor);
+            //平衡维护
+            //向左倾斜（新节点在左左），就右旋转
+            if (balanceFactor > 1 && getBalanceFactor(node.left) >= 0) {
+                return rightRotate(node);
+            }
+            //向右倾斜（新节点在右右），就左旋转
+            if (balanceFactor < -1 && getBalanceFactor(node.right) <= 0) {
+                return leftRotate(node);
+            }
+            
         }
         return node;
     }
